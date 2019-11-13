@@ -144,7 +144,7 @@ function scan() {
                 # Append barcode to log
                 echo "$barcode, $(date +'%H:%M:%S')" >> "$LOG"
                 # Curl the server
-                curl --silent -X GET "${SERVER_ADDR}?username=${ADMIN_NAME}&pword=${ADMIN_PWORD}&osis=${barcode}&date=${DATE}" > /dev/null&
+                # curl --silent -X GET "${SERVER_ADDR}?username=${ADMIN_NAME}&pword=${ADMIN_PWORD}&osis=${barcode}&date=${DATE}" > /dev/null&
             else
                 printf "%sYou already scanned in%s\n" "${YELLOW}" "${RESET}"
                 python2 strike_print.py "$barcode"
@@ -162,19 +162,18 @@ function helpMenu(){
     printf "%shelp%s\t\t\t---\t\tdisplay the help menu%s\n"  "${YELLOW}" "${MAGENTA}" "${RESET}"
     printf "%s======================================================================================================================%s\n\n" "${GREEN}" "${RESET}"
 }
-function custom_upload() {
-    curl --silent -X GET "${SERVER_ADDR}?username=${ADMIN_NAME}&pword=${ADMIN_PWORD}&osis=$2&date=$1" > /dev/null
-}
+# function custom_upload() {
+#     curl --silent -X GET "${SERVER_ADDR}?username=${ADMIN_NAME}&pword=${ADMIN_PWORD}&osis=$2&date=$1" > /dev/null
+# }
 
-function dump_csv() {
-    while IFS= read -r num; do
-        custom_upload "${1%%.*}" "$num"
-    done < "$1"
-}
+# function dump_csv() {
+#     while IFS= read -r num; do
+#         custom_upload "${1%%.*}" "$num"
+#     done < "$1"
+# }
 
 # Admin Login
 #login
 # Invoke the scan function
 helpMenu
 scan
-
